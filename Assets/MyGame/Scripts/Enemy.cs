@@ -73,7 +73,7 @@ public class Enemy : BaseProperties
         {
             GetComponent<SpriteRenderer>().sprite = _goRightSprite;
             _dir = -1;
-            transform.position += Vector3.right * Time.deltaTime * _runForce;
+            transform.position += _runForce * Time.deltaTime * Vector3.right;
         }
 
         if (_dir == 1 && Mathf.Abs(transform.position.x - _rightPoint.x) < _distanceToEndSearchArea)
@@ -92,7 +92,7 @@ public class Enemy : BaseProperties
 
         if (_dir == 1 && transform.position.x < _rightPoint.x)
         {
-            transform.position += Vector3.right * Time.deltaTime * _runForce;
+            transform.position += _runForce * Time.deltaTime * Vector3.right;
         }
         else if (_dir == -1 && transform.position.x > _leftPoint.x)
         {

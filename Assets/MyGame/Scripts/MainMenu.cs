@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class MainMenu : MonoBehaviour
 {
@@ -42,7 +45,7 @@ public class MainMenu : MonoBehaviour
         _infoPanel.gameObject.SetActive(false);
         _exitScreen.gameObject.SetActive(false);
 
-        _exit.onClick.AddListener(Exit);
+        //_exit.onClick.AddListener(Exit);
         _back.onClick.AddListener(Back);
     }
 
@@ -119,7 +122,7 @@ public class MainMenu : MonoBehaviour
         _mainMenuPanel.gameObject.SetActive(true);
         _infoPanel.gameObject.SetActive(false);
     }
-    private void Exit()
+    public void Exit()
     {
         _inInfo = false;
         _mainMenuPanel.gameObject.SetActive(false);
@@ -128,15 +131,13 @@ public class MainMenu : MonoBehaviour
         _exitScreen.gameObject.SetActive(true);
         _exitCheck = true;
 
-        StartCoroutine(nameof(ExitDelay));
+        Invoke(nameof(ExitDelay), 2.5f);
+
+        //EditorApplication.ExitPlaymode();
     }
-    IEnumerator ExitDelay()
+    void ExitDelay()
     {
-        yield return new WaitForSeconds(.1f);
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;    // somehow don`t work
-#endif
-        Application.Quit();
+        Debug.Log("Exit in 2.5sec");
     }
 
     
